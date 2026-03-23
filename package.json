@@ -43,6 +43,7 @@
     "jest": "^29.4.0",
     "jest-expo": "~54.0.17",
     "prettier": "^3.8.1",
+    "react-native-worklets": "^0.8.1",
     "ts-jest": "^29.4.6",
     "typescript": "~5.9.2"
   },
