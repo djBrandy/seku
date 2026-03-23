@@ -126,7 +126,11 @@ export const SceneContainer: React.FC<SceneContainerProps> = ({ onSceneInit, onU
   return (
     <GestureHandlerRootView style={styles.container}>
       <GestureDetector gesture={gestures}>
-        <GLView style={styles.glView} onContextCreate={onContextCreate} />
+        <GLView 
+          style={styles.glView} 
+          onContextCreate={onContextCreate} 
+          msaaSamples={0}
+        />
       </GestureDetector>
     </GestureHandlerRootView>
   );
