@@ -1,4 +1,3 @@
-*.pem
 
 # local env files
 .env*.local
