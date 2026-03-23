@@ -25,6 +25,16 @@ export const SceneContainer: React.FC<SceneContainerProps> = ({ onSceneInit, onU
     // monkey patch dis thing cuz it keeps crashing lol
     gl.renderbufferStorageMultisample = () => {};
     
+    // suppress dat annoying pixelstorei spam
+    const originalPixelStorei = gl.pixelStorei.bind(gl);
+    gl.pixelStorei = (pname: number, param: any) => {
+      try {
+        originalPixelStorei(pname, param);
+      } catch (e) {
+        // just ignore it man, expo gl is weird
+      }
+    };
+    
     // Scene setup
     const scene = new THREE.Scene();
     sceneRef.current = scene;
