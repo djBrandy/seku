@@ -61,3 +61,5 @@ The 3D Virtual Science Lab addresses the need for accessible science education b
 ## License
 
 [MIT](LICENSE) - see the LICENSE file for details.
+## Troubleshooting
+- Resolved 'Cannot find module react-native-worklets/plugin' by installing react-native-worklets.
