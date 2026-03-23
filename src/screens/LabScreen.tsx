@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { useChemistryExperiment } from '../experiments/chemistry/useChemistryExperiment';
 import { ChemistryScene } from '../experiments/chemistry/ChemistryScene';
 
+// some ui stuff i guess
 const LabScreen = ({ route }: any) => {
   const { experiment } = route.params || { experiment: 'chemistry' };
   const [status, setStatus] = useState('Initializing...');

@@ -1,3 +1,4 @@
+// idk man this math is kinda crazy but it works for now
 export interface Solution {
   name: string;
   pH: number;
