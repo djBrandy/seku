@@ -31,15 +31,13 @@ export const ChemistryScene: React.FC<ChemistrySceneProps> = ({ scene, solution 
     const beakerGroup = new THREE.Group();
     beakerRef.current = beakerGroup;
 
-    // Beaker Glass
-    const glassGeo = new THREE.CylinderGeometry(0.5, 0.5, 1.2, 32, 1, true);
-    const glassMat = new THREE.MeshPhysicalMaterial({
+    // Beaker Glass - simplified material
+    const glassMat = new THREE.MeshStandardMaterial({
       color: 0xffffff,
       transparent: true,
       opacity: 0.3,
-      transmission: 0.9,
       roughness: 0.1,
-      metalness: 0,
+      metalness: 0.1,
     });
     const glass = new THREE.Mesh(glassGeo, glassMat);
     beakerGroup.add(glass);

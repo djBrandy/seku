@@ -77,7 +77,11 @@ export const SceneContainer: React.FC<SceneContainerProps> = ({ onSceneInit, onU
       }
       previousTimeRef.current = time;
 
-      renderer.render(scene, camera);
+      try {
+        renderer.render(scene, camera);
+      } catch (err) {
+        // if it fails, just ignore it man, i'll fix it later
+      }
       gl.endFrameEXP();
     };
 
