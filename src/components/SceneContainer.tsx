@@ -35,13 +35,22 @@ export const SceneContainer: React.FC<SceneContainerProps> = ({ onSceneInit, onU
     // Camera Controller setup
     cameraControllerRef.current = new CameraController(camera);
 
-    // Renderer setup - turn off antialias cuz it breaks on some phones
-    const renderer = new Renderer({ 
-      gl,
+    // Renderer setup - using base WebGLRenderer to be super sure about props
+    const renderer = new THREE.WebGLRenderer({
+      canvas: {
+        width: gl.drawingBufferWidth,
+        height: gl.drawingBufferHeight,
+        style: {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => {},
+      } as any,
+      context: gl,
       antialias: false,
     });
     renderer.setSize(width, height);
-    rendererRef.current = renderer;
+    renderer.setPixelRatio(gl.pixelRatio || 1);
+    rendererRef.current = renderer as any;
 
     // Initial scene setup
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
