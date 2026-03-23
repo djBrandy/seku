@@ -22,6 +22,9 @@ export const SceneContainer: React.FC<SceneContainerProps> = ({ onSceneInit, onU
   const raycaster = useRef(new THREE.Raycaster());
 
   const onContextCreate = async (gl: any) => {
+    // monkey patch dis thing cuz it keeps crashing lol
+    gl.renderbufferStorageMultisample = () => {};
+    
     // Scene setup
     const scene = new THREE.Scene();
     sceneRef.current = scene;
