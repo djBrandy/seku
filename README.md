@@ -63,3 +63,4 @@ The 3D Virtual Science Lab addresses the need for accessible science education b
 [MIT](LICENSE) - see the LICENSE file for details.
 ## Troubleshooting
 - Resolved 'Cannot find module react-native-worklets/plugin' by installing react-native-worklets.
+- Aligned Expo SDK with Phone Version (SDK 54).
