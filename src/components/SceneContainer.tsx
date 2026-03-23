@@ -48,22 +48,10 @@ export const SceneContainer: React.FC<SceneContainerProps> = ({ onSceneInit, onU
     // Camera Controller setup
     cameraControllerRef.current = new CameraController(camera);
 
-    // Renderer setup - using base WebGLRenderer to be super sure about props
-    const renderer = new THREE.WebGLRenderer({
-      canvas: {
-        width: gl.drawingBufferWidth,
-        height: gl.drawingBufferHeight,
-        style: {},
-        addEventListener: () => {},
-        removeEventListener: () => {},
-        dispatchEvent: () => {},
-      } as any,
-      context: gl,
-      antialias: false,
-    });
+    // Renderer setup - goin back to expo-three cuz its easier
+    const renderer = new Renderer({ gl });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(gl.pixelRatio || 1);
-    rendererRef.current = renderer as any;
+    rendererRef.current = renderer;
 
     // Initial scene setup
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -81,6 +69,8 @@ export const SceneContainer: React.FC<SceneContainerProps> = ({ onSceneInit, onU
     const render = (time: number) => {
       requestRef.current = requestAnimationFrame(render);
       
+      if (!scene || !camera || !renderer) return;
+
       if (previousTimeRef.current !== undefined) {
         const delta = (time - previousTimeRef.current) / 1000;
         if (onUpdate) onUpdate(delta);
