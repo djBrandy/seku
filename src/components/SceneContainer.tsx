@@ -35,8 +35,11 @@ export const SceneContainer: React.FC<SceneContainerProps> = ({ onSceneInit, onU
     // Camera Controller setup
     cameraControllerRef.current = new CameraController(camera);
 
-    // Renderer setup
-    const renderer = new Renderer({ gl });
+    // Renderer setup - turn off antialias cuz it breaks on some phones
+    const renderer = new Renderer({ 
+      gl,
+      antialias: false,
+    });
     renderer.setSize(width, height);
     rendererRef.current = renderer;
 
