@@ -14,6 +14,9 @@ const PH_MAX = 14.0;
 export class ChemistryLogic {
   static calculateMixedPH(solutionA: Solution, solutionB: Solution): Solution {
     const totalVolume = solutionA.volume + solutionB.volume;
+    if (totalVolume <= 0) {
+      return { ...solutionA, name: 'Empty Solution' };
+    }
     
     // Calculate total moles of H+ and OH-
     // pH = -log10([H+])  => [H+] = 10^-pH
