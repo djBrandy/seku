@@ -10,9 +10,11 @@ export interface CircuitComponent {
   id: string;
   type: ComponentType;
   value: number; // Resistance (ohms) or Voltage (volts)
+  unit: string;
   nodeA: number;
   nodeB: number;
   label: string;
+  description?: string;
 }
 
 export class CircuitSimulation {
