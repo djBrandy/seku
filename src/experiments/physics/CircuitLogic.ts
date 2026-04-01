@@ -21,7 +21,19 @@ export class CircuitSimulation {
   // to handle voltage sources easily.
   
   static solve(components: CircuitComponent[]) {
-    // This will be a complex implementation in /src/experiments/physics/CircuitLogic.ts
+    // Basic single-loop circuit solver (one battery, one resistor)
+    const battery = components.find(c => c.type === ComponentType.BATTERY);
+    const resistor = components.find(c => c.type === ComponentType.RESISTOR);
+
+    if (battery && resistor && resistor.value > 0) {
+      const current = battery.value / resistor.value;
+      return components.map(c => ({
+        id: c.id,
+        voltage: c.type === ComponentType.BATTERY ? battery.value : (c.type === ComponentType.RESISTOR ? battery.value : 0),
+        current: current,
+      }));
+    }
+
     // Returning dummy values for now
     return components.map(c => ({
       id: c.id,
