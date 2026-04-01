@@ -5,20 +5,25 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>3D Virtual Science Lab</Text>
+      <Text style={styles.subtitle}>Choose an experiment to start learning</Text>
+      
       <View style={styles.experimentContainer}>
         <TouchableOpacity 
-          style={styles.card}
+          style={[styles.card, styles.chemCard]}
           onPress={() => navigation.navigate('Lab', { experiment: 'chemistry' })}
         >
-          <Text style={styles.cardTitle}>Chemistry: Acid-Base Reactions</Text>
-          <Text style={styles.cardDesc}>Learn about pH and neutralization.</Text>
+          <Text style={styles.cardTitle}>Chemistry</Text>
+          <Text style={styles.cardSubtitle}>Acid-Base Reactions</Text>
+          <Text style={styles.cardDesc}>Learn about pH, indicators, and neutralization through interactive 3D experiments.</Text>
         </TouchableOpacity>
+
         <TouchableOpacity 
-          style={styles.card}
+          style={[styles.card, styles.physicsCard]}
           onPress={() => navigation.navigate('Lab', { experiment: 'physics' })}
         >
-          <Text style={styles.cardTitle}>Physics: Electric Circuits</Text>
-          <Text style={styles.cardDesc}>Build and test Ohm's Law.</Text>
+          <Text style={styles.cardTitle}>Physics</Text>
+          <Text style={styles.cardSubtitle}>Electric Circuits</Text>
+          <Text style={styles.cardDesc}>Build DC circuits with resistors, batteries, and bulbs to explore Ohm's Law.</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -34,32 +39,51 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 5,
     color: '#1a365d',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#4a5568',
+    marginBottom: 30,
   },
   experimentContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   card: {
-    width: '45%',
+    width: '48%',
     padding: 20,
     backgroundColor: 'white',
-    borderRadius: 12,
-    elevation: 3,
+    borderRadius: 16,
+    elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: 6,
+    borderTopWidth: 4,
+  },
+  chemCard: {
+    borderTopColor: '#38a169',
+  },
+  physicsCard: {
+    borderTopColor: '#3182ce',
   },
   cardTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 4,
     color: '#2d3748',
   },
-  cardDesc: {
+  cardSubtitle: {
     fontSize: 14,
+    fontWeight: '600',
+    color: '#718096',
+    marginBottom: 10,
+  },
+  cardDesc: {
+    fontSize: 12,
+    lineHeight: 18,
     color: '#4a5568',
   },
 });
