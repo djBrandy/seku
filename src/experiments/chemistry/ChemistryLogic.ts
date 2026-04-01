@@ -7,6 +7,10 @@ export interface Solution {
   color: string;
 }
 
+const PH_NEUTRAL = 7.0;
+const PH_MIN = 0.0;
+const PH_MAX = 14.0;
+
 export class ChemistryLogic {
   static calculateMixedPH(solutionA: Solution, solutionB: Solution): Solution {
     const totalVolume = solutionA.volume + solutionB.volume;
@@ -16,10 +20,10 @@ export class ChemistryLogic {
     // [OH-] = 10^-(14-pH)
     
     const hA = Math.pow(10, -solutionA.pH);
-    const ohA = Math.pow(10, -(14 - solutionA.pH));
+    const ohA = Math.pow(10, -(PH_MAX - solutionA.pH));
     
     const hB = Math.pow(10, -solutionB.pH);
-    const ohB = Math.pow(10, -(14 - solutionB.pH));
+    const ohB = Math.pow(10, -(PH_MAX - solutionB.pH));
     
     const totalH = solutionA.volume * hA + solutionB.volume * hB;
     const totalOH = solutionA.volume * ohA + solutionB.volume * ohB;
@@ -30,14 +34,14 @@ export class ChemistryLogic {
       mixedPH = -Math.log10(netH);
     } else if (totalOH > totalH) {
       const netOH = (totalOH - totalH) / totalVolume;
-      mixedPH = 14 + Math.log10(netOH);
+      mixedPH = PH_MAX + Math.log10(netOH);
     } else {
-      mixedPH = 7;
+      mixedPH = PH_NEUTRAL;
     }
     
     return {
       name: 'Mixed Solution',
-      pH: parseFloat(Math.max(0, Math.min(14, mixedPH)).toFixed(2)),
+      pH: parseFloat(Math.max(PH_MIN, Math.min(PH_MAX, mixedPH)).toFixed(2)),
       concentration: (solutionA.concentration * solutionA.volume + solutionB.concentration * solutionB.volume) / totalVolume,
       volume: totalVolume,
       color: this.interpolateColor(solutionA.color, solutionB.color, solutionB.volume / totalVolume),
