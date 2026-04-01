@@ -51,20 +51,36 @@ export class ChemistryLogic {
     };
   }
 
+  private static normalizeHex(hex: string): string {
+    let cleanHex = hex.replace('#', '');
+    if (cleanHex.length === 3) {
+      cleanHex = cleanHex.split('').map(char => char + char).join('');
+    }
+    return `#${cleanHex.padStart(6, '0')}`;
+  }
+
+  private static toRGB(hex: string) {
+    const normalized = this.normalizeHex(hex);
+    return {
+      r: parseInt(normalized.slice(1, 3), 16),
+      g: parseInt(normalized.slice(3, 5), 16),
+      b: parseInt(normalized.slice(5, 7), 16),
+    };
+  }
+
+  private static fromRGB(r: number, g: number, b: number): string {
+    const toHex = (c: number) => Math.round(Math.max(0, Math.min(255, c))).toString(16).padStart(2, '0');
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+  }
+
   private static interpolateColor(color1: string, color2: string, factor: number): string {
-    // Basic color interpolation for visualization
-    const r1 = parseInt(color1.slice(1, 3), 16);
-    const g1 = parseInt(color1.slice(3, 5), 16);
-    const b1 = parseInt(color1.slice(5, 7), 16);
+    const rgb1 = this.toRGB(color1);
+    const rgb2 = this.toRGB(color2);
 
-    const r2 = parseInt(color2.slice(1, 3), 16);
-    const g2 = parseInt(color2.slice(3, 5), 16);
-    const b2 = parseInt(color2.slice(5, 7), 16);
+    const r = rgb1.r + (rgb2.r - rgb1.r) * factor;
+    const g = rgb1.g + (rgb2.g - rgb1.g) * factor;
+    const b = rgb1.b + (rgb2.b - rgb1.b) * factor;
 
-    const r = Math.round(r1 + (r2 - r1) * factor);
-    const g = Math.round(g1 + (g2 - g1) * factor);
-    const b = Math.round(b1 + (b2 - b1) * factor);
-
-    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    return this.fromRGB(r, g, b);
   }
 }
