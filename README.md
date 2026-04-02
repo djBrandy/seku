@@ -9,15 +9,16 @@ The 3D Virtual Science Lab addresses the need for accessible science education b
 ## Key Features
 
 - **Interactive 3D Engine**: Custom-built rendering system with orbit/pan/zoom controls and raycasting for object selection.
-- **Chemistry Lab**: Explore pH and acid-base reactions. Features dynamic liquid mixing, pH simulation, and titration curves.
+- **Chemistry Lab**: Explore pH and acid-base reactions. Features dynamic liquid mixing, pH simulation, and a visual color scale for indicator matching.
+- **Expanded Chemical Library**: Test common household items like Lemon Juice, Milk, and Baking Soda alongside laboratory reagents.
 - **Physics Lab**: Build and test DC circuits using resistors, batteries, and bulbs to explore Ohm's Law.
-- **Real-time Simulation**: Scientifically accurate physics and chemistry engines calculating outcomes on-the-fly.
-- **Accessibility**: Support for screen readers, high-contrast modes, and simplified controls to ensure inclusion for all students.
+- **Cross-Platform**: Full support for Android, iOS, and Web browsers.
 
 ## Technology Stack
 
 - **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/) (Managed Workflow)
 - **3D Rendering**: [Three.js](https://threejs.org/) via [expo-three](https://github.com/expo/expo-three) and [expo-gl](https://docs.expo.dev/versions/latest/sdk/gl-view/)
+- **Icons**: [Lucide React Native](https://lucide.dev/guide/react-native)
 - **Navigation**: [React Navigation](https://reactnavigation.org/)
 - **State Management**: React Context API & Custom Hooks
 - **Styling**: Vanilla CSS (StyleSheet)
@@ -44,9 +45,8 @@ The 3D Virtual Science Lab addresses the need for accessible science education b
    ```
 
 3. Start the development server:
-   ```bash
-   npx expo start
-   ```
+   - For Mobile (Expo Go): `npx expo start`
+   - For Web: `npm run web`
 
 4. Scan the QR code with your Expo Go app (Android) or Camera app (iOS).
 
