@@ -1,7 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Switch } from 'react-native';
 
 const SettingsScreen = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isHighContrast, setIsHighContrast] = useState(false);
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       <Text style={styles.title}>Settings</Text>
@@ -15,7 +18,12 @@ const SettingsScreen = () => {
         </View>
         <View style={styles.settingItem}>
           <Text style={styles.settingLabel}>Dark Mode</Text>
-          <Text style={styles.settingValue}>Off</Text>
+          <Switch 
+            value={isDarkMode} 
+            onValueChange={setIsDarkMode}
+            trackColor={{ false: "#718096", true: "#3182ce" }}
+            thumbColor={isDarkMode ? "#fff" : "#f4f3f4"}
+          />
         </View>
       </View>
 
@@ -23,7 +31,12 @@ const SettingsScreen = () => {
         <Text style={styles.sectionTitle}>Accessibility</Text>
         <View style={styles.settingItem}>
           <Text style={styles.settingLabel}>High Contrast</Text>
-          <Text style={styles.settingValue}>Disabled</Text>
+          <Switch 
+            value={isHighContrast} 
+            onValueChange={setIsHighContrast}
+            trackColor={{ false: "#718096", true: "#38a169" }}
+            thumbColor={isHighContrast ? "#fff" : "#f4f3f4"}
+          />
         </View>
         <View style={styles.settingItem}>
           <Text style={styles.settingLabel}>Text Size</Text>
