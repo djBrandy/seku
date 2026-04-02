@@ -78,6 +78,8 @@ export const ChemistryScene: React.FC<ChemistrySceneProps> = ({ scene, solution 
       scene.remove(floor);
       scene.remove(table);
       scene.remove(beakerGroup);
+      scene.remove(ambientLight);
+      scene.remove(pointLight);
     };
   }, [scene]);
 
