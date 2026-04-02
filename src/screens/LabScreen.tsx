@@ -30,8 +30,11 @@ const LabScreen = ({ route }: any) => {
 
   const solutions = [
     { name: 'Hydrochloric Acid (0.1M)', pH: 1, concentration: 0.1, volume: 50, color: '#ff0000' },
-    { name: 'Acetic Acid (0.1M)', pH: 2.88, concentration: 0.1, volume: 50, color: '#ff7700' },
-    { name: 'Distilled Water', pH: 7, concentration: 0, volume: 50, color: '#ffffff' },
+    { name: 'Lemon Juice', pH: 2.2, concentration: 0.05, volume: 50, color: '#ffff00' },
+    { name: 'Acetic Acid (Vinegar)', pH: 2.88, concentration: 0.1, volume: 50, color: '#ffcc00' },
+    { name: 'Milk', pH: 6.7, concentration: 0.0001, volume: 50, color: '#ffffff' },
+    { name: 'Distilled Water', pH: 7, concentration: 0, volume: 50, color: '#00ffff' },
+    { name: 'Baking Soda Sol.', pH: 8.3, concentration: 0.1, volume: 50, color: '#00ffcc' },
     { name: 'Ammonia (0.1M)', pH: 11.12, concentration: 0.1, volume: 50, color: '#77aaff' },
     { name: 'Sodium Hydroxide (0.1M)', pH: 13, concentration: 0.1, volume: 50, color: '#0000ff' },
   ];
