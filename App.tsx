@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
+import { Home, FlaskConical, BookOpen, BarChart2, Settings } from 'lucide-react-native';
 
 // Placeholder screens
 import HomeScreen from './src/screens/HomeScreen';
@@ -19,10 +20,20 @@ const Tab = createBottomTabNavigator();
 function TabNavigator() {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarStyle: { height: 60 },
-      }}
+        tabBarStyle: { height: 65, paddingBottom: 10, paddingTop: 10 },
+        tabBarIcon: ({ color, size }) => {
+          if (route.name === 'Home') return <Home color={color} size={size} />;
+          if (route.name === 'Lab') return <FlaskConical color={color} size={size} />;
+          if (route.name === 'Resources') return <BookOpen color={color} size={size} />;
+          if (route.name === 'Progress') return <BarChart2 color={color} size={size} />;
+          if (route.name === 'Settings') return <Settings color={color} size={size} />;
+          return null;
+        },
+        tabBarActiveTintColor: '#3182ce',
+        tabBarInactiveTintColor: '#718096',
+      })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Lab" component={LabScreen} />
