@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { SceneContainer } from '../components/SceneContainer';
 import * as THREE from 'three';
+import { RotateCcw } from 'lucide-react-native';
 import { useChemistryExperiment } from '../experiments/chemistry/useChemistryExperiment';
 import { ChemistryScene } from '../experiments/chemistry/ChemistryScene';
 
@@ -84,7 +85,7 @@ const LabScreen = ({ route }: any) => {
           ))}
         </ScrollView>
         <TouchableOpacity style={styles.resetFab} onPress={resetExperiment}>
-          <Text style={styles.resetFabText}>Reset</Text>
+          <RotateCcw color="white" size={24} />
         </TouchableOpacity>
       </View>
     </View>
