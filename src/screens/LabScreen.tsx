@@ -66,6 +66,17 @@ const LabScreen = ({ route }: any) => {
             </View>
           </View>
         )}
+        <View style={styles.phScale}>
+          {[...Array(15)].map((_, i) => (
+            <View 
+              key={i} 
+              style={[
+                styles.phStep, 
+                { backgroundColor: i < 7 ? `rgb(255, ${Math.floor(255 * (i/7))}, 0)` : (i === 7 ? '#ffffff' : `rgb(0, ${Math.floor(255 * (1 - (i-7)/7))}, 255)`) }
+              ]} 
+            />
+          ))}
+        </View>
       </View>
 
       <View style={styles.controls}>
@@ -163,6 +174,18 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 11,
     fontWeight: 'bold',
+  },
+  phScale: {
+    flexDirection: 'row',
+    marginTop: 15,
+    height: 8,
+    borderRadius: 4,
+    overflow: 'hidden',
+    backgroundColor: '#000',
+  },
+  phStep: {
+    flex: 1,
+    height: '100%',
   },
   controls: {
     position: 'absolute',
