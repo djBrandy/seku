@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 const ProgressScreen = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       <Text style={styles.title}>Your Progress</Text>
       <Text style={styles.subtitle}>Track your lab achievements and data recordings.</Text>
 
@@ -28,15 +28,18 @@ const ProgressScreen = () => {
         </View>
         <Text style={styles.cardStats}>1/5 Experiments Completed</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    padding: 30, 
     backgroundColor: '#f0f4f8' 
+  },
+  scrollContent: {
+    padding: 30,
+    paddingBottom: 50,
   },
   title: { 
     fontSize: 28, 

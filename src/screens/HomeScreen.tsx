@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { FlaskConical, Zap } from 'lucide-react-native';
 
 const HomeScreen = ({ navigation }: any) => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       <Text style={styles.title}>3D Virtual Science Lab</Text>
       <Text style={styles.subtitle}>Choose an experiment to start learning</Text>
       
@@ -29,15 +29,18 @@ const HomeScreen = ({ navigation }: any) => {
           <Text style={styles.cardDesc}>Build DC circuits with resistors, batteries, and bulbs to explore Ohm's Law.</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#f0f4f8',
+  },
+  scrollContent: {
+    padding: 20,
+    paddingBottom: 40,
   },
   title: {
     fontSize: 28,

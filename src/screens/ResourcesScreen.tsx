@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 const ResourcesScreen = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       <Text style={styles.title}>Learning Resources</Text>
       <Text style={styles.subtitle}>Deepen your knowledge with extra materials.</Text>
 
@@ -32,15 +32,18 @@ const ResourcesScreen = () => {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    padding: 30, 
     backgroundColor: '#f0f4f8' 
+  },
+  scrollContent: {
+    padding: 30,
+    paddingBottom: 50,
   },
   title: { 
     fontSize: 28, 

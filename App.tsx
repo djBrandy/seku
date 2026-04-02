@@ -47,7 +47,7 @@ function TabNavigator() {
 export default function App() {
   useEffect(() => {
     async function lockOrientation() {
-      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT);
     }
     lockOrientation();
   }, []);

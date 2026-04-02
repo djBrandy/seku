@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 const SettingsScreen = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       <Text style={styles.title}>Settings</Text>
       <Text style={styles.subtitle}>Configure your lab experience.</Text>
 
@@ -42,15 +42,18 @@ const SettingsScreen = () => {
           <Text style={styles.settingValue}>djBrandy</Text>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    padding: 30, 
     backgroundColor: '#f0f4f8' 
+  },
+  scrollContent: {
+    padding: 30,
+    paddingBottom: 50,
   },
   title: { 
     fontSize: 28, 
