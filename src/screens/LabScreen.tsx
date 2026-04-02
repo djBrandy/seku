@@ -28,16 +28,28 @@ const LabScreen = ({ route }: any) => {
     }
   };
 
-  const solutions = [
-    { name: 'Hydrochloric Acid (0.1M)', pH: 1, concentration: 0.1, volume: 50, color: '#ff0000' },
-    { name: 'Lemon Juice', pH: 2.2, concentration: 0.05, volume: 50, color: '#ffff00' },
-    { name: 'Acetic Acid (Vinegar)', pH: 2.88, concentration: 0.1, volume: 50, color: '#ffcc00' },
-    { name: 'Milk', pH: 6.7, concentration: 0.0001, volume: 50, color: '#ffffff' },
-    { name: 'Distilled Water', pH: 7, concentration: 0, volume: 50, color: '#00ffff' },
-    { name: 'Baking Soda Sol.', pH: 8.3, concentration: 0.1, volume: 50, color: '#00ffcc' },
-    { name: 'Ammonia (0.1M)', pH: 11.12, concentration: 0.1, volume: 50, color: '#77aaff' },
-    { name: 'Sodium Hydroxide (0.1M)', pH: 13, concentration: 0.1, volume: 50, color: '#0000ff' },
-  ];
+  const [activeCategory, setActiveCategory] = useState('Acids');
+
+  const solutionPortfolios: Record<string, any[]> = {
+    'Acids': [
+      { name: 'Hydrochloric Acid (0.1M)', pH: 1, concentration: 0.1, volume: 50, color: '#ff0000' },
+      { name: 'Sulfuric Acid (0.05M)', pH: 1.2, concentration: 0.05, volume: 50, color: '#ff4400' },
+      { name: 'Acetic Acid (Vinegar)', pH: 2.88, concentration: 0.1, volume: 50, color: '#ffcc00' },
+    ],
+    'Bases': [
+      { name: 'Sodium Hydroxide (0.1M)', pH: 13, concentration: 0.1, volume: 50, color: '#0000ff' },
+      { name: 'Ammonia (0.1M)', pH: 11.12, concentration: 0.1, volume: 50, color: '#77aaff' },
+      { name: 'Baking Soda Sol.', pH: 8.3, concentration: 0.1, volume: 50, color: '#00ffcc' },
+    ],
+    'Household': [
+      { name: 'Lemon Juice', pH: 2.2, concentration: 0.05, volume: 50, color: '#ffff00' },
+      { name: 'Milk', pH: 6.7, concentration: 0.0001, volume: 50, color: '#ffffff' },
+      { name: 'Distilled Water', pH: 7, concentration: 0, volume: 50, color: '#00ffff' },
+      { name: 'Bleach', pH: 12.5, concentration: 0.5, volume: 50, color: '#f0fff0' },
+    ]
+  };
+
+  const currentSolutions = solutionPortfolios[activeCategory] || [];
 
   return (
     <View style={styles.container}>
@@ -84,10 +96,20 @@ const LabScreen = ({ route }: any) => {
 
       <View style={styles.controls}>
         <View style={styles.controlHeader}>
-          <Text style={styles.controlTitle}>Solutions Portfolio</Text>
+          <View style={styles.portfolioTabs}>
+            {Object.keys(solutionPortfolios).map(cat => (
+              <TouchableOpacity 
+                key={cat} 
+                onPress={() => setActiveCategory(cat)}
+                style={[styles.portfolioTab, activeCategory === cat && styles.activeTab]}
+              >
+                <Text style={[styles.portfolioTabText, activeCategory === cat && styles.activeTabText]}>{cat}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-          {solutions.map((sol) => (
+          {currentSolutions.map((sol) => (
             <TouchableOpacity 
               key={sol.name} 
               style={[styles.button, { borderLeftColor: sol.color, borderLeftWidth: 4 }]}
@@ -202,6 +224,29 @@ const styles = StyleSheet.create({
   controlHeader: {
     marginBottom: 10,
     paddingHorizontal: 5,
+  },
+  portfolioTabs: {
+    flexDirection: 'row',
+    marginBottom: 5,
+  },
+  portfolioTab: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    marginRight: 8,
+    backgroundColor: '#1a202c',
+  },
+  activeTab: {
+    backgroundColor: '#3182ce',
+  },
+  portfolioTabText: {
+    color: '#a0aec0',
+    fontSize: 10,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+  },
+  activeTabText: {
+    color: '#fff',
   },
   controlTitle: {
     color: '#718096',
