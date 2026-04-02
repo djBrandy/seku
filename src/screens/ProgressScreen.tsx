@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { progressService, LabStats } from '../services/ProgressService';
 
 const ProgressScreen = () => {
+  const [stats, setStats] = useState<LabStats>(progressService.getStats());
+
+  useEffect(() => {
+    const unsubscribe = progressService.subscribe(() => {
+      setStats(progressService.getStats());
+    });
+    return unsubscribe;
+  }, []);
+
+  // Calculate percentages based on some targets (e.g., 20 actions for 100%)
+  const chemPercent = Math.min(100, (stats.chemistryExperiments / 10) * 100);
+  const physicsPercent = Math.min(100, (stats.physicsExperiments / 10) * 100);
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       <Text style={styles.title}>Your Progress</Text>
@@ -10,23 +24,27 @@ const ProgressScreen = () => {
       <View style={styles.card}>
         <View style={styles.cardHeader}>
           <Text style={styles.cardTitle}>Chemistry Lab</Text>
-          <Text style={styles.cardPercent}>60%</Text>
+          <Text style={styles.cardPercent}>{chemPercent.toFixed(0)}%</Text>
         </View>
         <View style={styles.progressBar}>
-          <View style={[styles.progressFill, { width: '60%', backgroundColor: '#38a169' }]} />
+          <View style={[styles.progressFill, { width: `${chemPercent}%`, backgroundColor: '#38a169' }]} />
         </View>
-        <Text style={styles.cardStats}>3/5 Experiments Completed</Text>
+        <Text style={styles.cardStats}>{stats.chemistryExperiments} actions performed</Text>
       </View>
 
       <View style={styles.card}>
         <View style={styles.cardHeader}>
           <Text style={styles.cardTitle}>Physics Lab</Text>
-          <Text style={styles.cardPercent}>20%</Text>
+          <Text style={styles.cardPercent}>{physicsPercent.toFixed(0)}%</Text>
         </View>
         <View style={styles.progressBar}>
-          <View style={[styles.progressFill, { width: '20%', backgroundColor: '#3182ce' }]} />
+          <View style={[styles.progressFill, { width: `${physicsPercent}%`, backgroundColor: '#3182ce' }]} />
         </View>
-        <Text style={styles.cardStats}>1/5 Experiments Completed</Text>
+        <Text style={styles.cardStats}>{stats.physicsExperiments} actions performed</Text>
+      </View>
+
+      <View style={styles.totalStats}>
+        <Text style={styles.totalText}>Total Lab Actions: {stats.totalActions}</Text>
       </View>
     </ScrollView>
   );
@@ -93,6 +111,18 @@ const styles = StyleSheet.create({
   cardStats: {
     fontSize: 14,
     color: '#718096',
+  },
+  totalStats: {
+    marginTop: 10,
+    padding: 20,
+    backgroundColor: '#1a365d',
+    borderRadius: 16,
+    alignItems: 'center',
+  },
+  totalText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   }
 });
 

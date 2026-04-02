@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { RotateCcw } from 'lucide-react-native';
 import { useChemistryExperiment } from '../experiments/chemistry/useChemistryExperiment';
 import { ChemistryScene } from '../experiments/chemistry/ChemistryScene';
+import { progressService } from '../services/ProgressService';
 
 // some ui stuff i guess
 const LabScreen = ({ route }: any) => {
@@ -12,7 +13,17 @@ const LabScreen = ({ route }: any) => {
   const [status, setStatus] = useState('Initializing...');
   const [threeScene, setThreeScene] = useState<THREE.Scene | null>(null);
 
-  const { beakerSolution, addSolutionToBeaker, resetExperiment } = useChemistryExperiment();
+  const { beakerSolution, addSolutionToBeaker, resetExperiment: resetChem } = useChemistryExperiment();
+
+  const handleAddSolution = (sol: any) => {
+    addSolutionToBeaker(sol);
+    progressService.recordAction(experiment as 'chemistry' | 'physics');
+  };
+
+  const resetExperiment = () => {
+    resetChem();
+    progressService.recordAction(experiment as 'chemistry' | 'physics');
+  };
 
   const onSceneInit = (scene: THREE.Scene, camera: THREE.PerspectiveCamera) => {
     setStatus(`${experiment.toUpperCase()} LAB READY`);
@@ -113,7 +124,7 @@ const LabScreen = ({ route }: any) => {
             <TouchableOpacity 
               key={sol.name} 
               style={[styles.button, { borderLeftColor: sol.color, borderLeftWidth: 4 }]}
-              onPress={() => addSolutionToBeaker(sol)}
+              onPress={() => handleAddSolution(sol)}
             >
               <Text style={styles.buttonText}>{sol.name}</Text>
               <Text style={styles.buttonSubtext}>pH {sol.pH}</Text>
