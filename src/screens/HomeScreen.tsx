@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlaskConical, Zap } from 'lucide-react-native';
 
 const HomeScreen = ({ navigation }: any) => {
   return (
@@ -12,6 +13,7 @@ const HomeScreen = ({ navigation }: any) => {
           style={[styles.card, styles.chemCard]}
           onPress={() => navigation.navigate('Lab', { experiment: 'chemistry' })}
         >
+          <FlaskConical color="#38a169" size={32} style={{ marginBottom: 12 }} />
           <Text style={styles.cardTitle}>Chemistry</Text>
           <Text style={styles.cardSubtitle}>Acid-Base Reactions</Text>
           <Text style={styles.cardDesc}>Learn about pH, indicators, and neutralization through interactive 3D experiments.</Text>
@@ -21,6 +23,7 @@ const HomeScreen = ({ navigation }: any) => {
           style={[styles.card, styles.physicsCard]}
           onPress={() => navigation.navigate('Lab', { experiment: 'physics' })}
         >
+          <Zap color="#3182ce" size={32} style={{ marginBottom: 12 }} />
           <Text style={styles.cardTitle}>Physics</Text>
           <Text style={styles.cardSubtitle}>Electric Circuits</Text>
           <Text style={styles.cardDesc}>Build DC circuits with resistors, batteries, and bulbs to explore Ohm's Law.</Text>
