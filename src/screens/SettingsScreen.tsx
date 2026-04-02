@@ -30,6 +30,18 @@ const SettingsScreen = () => {
           <Text style={styles.settingValue}>Medium</Text>
         </View>
       </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>About</Text>
+        <View style={styles.settingItem}>
+          <Text style={styles.settingLabel}>Version</Text>
+          <Text style={styles.settingValue}>1.0.0-beta</Text>
+        </View>
+        <View style={styles.settingItem}>
+          <Text style={styles.settingLabel}>Developer</Text>
+          <Text style={styles.settingValue}>djBrandy</Text>
+        </View>
+      </View>
     </View>
   );
 };
