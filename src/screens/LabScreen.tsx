@@ -45,34 +45,47 @@ const LabScreen = ({ route }: any) => {
 
       <View style={styles.overlay}>
         <View style={styles.meterContainer}>
-          <Text style={styles.meterLabel}>pH METER</Text>
+          <Text style={styles.meterLabel}>PH LEVEL</Text>
           <Text style={[styles.meterValue, { color: beakerSolution ? '#48bb78' : '#718096' }]}>
             {beakerSolution ? beakerSolution.pH.toFixed(2) : '--.--'}
           </Text>
         </View>
-        <Text style={styles.statusText}>{status}</Text>
+        <View style={styles.infoBadge}>
+          <Text style={styles.statusText}>{status}</Text>
+        </View>
         {beakerSolution && (
           <View style={styles.dataDisplay}>
-            <Text style={styles.dataText}>Volume: {beakerSolution.volume.toFixed(1)} mL</Text>
+            <View style={styles.dataRow}>
+              <Text style={styles.dataLabel}>Volume:</Text>
+              <Text style={styles.dataValue}>{beakerSolution.volume.toFixed(1)} mL</Text>
+            </View>
+            <View style={styles.dataRow}>
+              <Text style={styles.dataLabel}>Conc.:</Text>
+              <Text style={styles.dataValue}>{beakerSolution.concentration.toFixed(3)} M</Text>
+            </View>
           </View>
         )}
       </View>
 
       <View style={styles.controls}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <View style={styles.controlHeader}>
+          <Text style={styles.controlTitle}>Solutions Portfolio</Text>
+        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
           {solutions.map((sol) => (
             <TouchableOpacity 
               key={sol.name} 
-              style={styles.button}
+              style={[styles.button, { borderLeftColor: sol.color, borderLeftWidth: 4 }]}
               onPress={() => addSolutionToBeaker(sol)}
             >
-              <Text style={styles.buttonText}>Add {sol.name}</Text>
+              <Text style={styles.buttonText}>{sol.name}</Text>
+              <Text style={styles.buttonSubtext}>pH {sol.pH}</Text>
             </TouchableOpacity>
           ))}
-          <TouchableOpacity style={[styles.button, styles.resetButton]} onPress={resetExperiment}>
-            <Text style={styles.buttonText}>Reset</Text>
-          </TouchableOpacity>
         </ScrollView>
+        <TouchableOpacity style={styles.resetFab} onPress={resetExperiment}>
+          <Text style={styles.resetFabText}>Reset</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -84,61 +97,134 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: 'absolute',
-    top: 40,
+    top: 60,
     left: 20,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    padding: 10,
-    borderRadius: 8,
+    width: 220,
   },
   meterContainer: {
-    backgroundColor: '#1a202c',
-    padding: 15,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: '#4a5568',
-    marginBottom: 10,
+    backgroundColor: '#000',
+    padding: 20,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#2d3748',
+    marginBottom: 12,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
   },
   meterLabel: {
-    color: '#a0aec0',
+    color: '#718096',
     fontSize: 10,
-    fontWeight: 'bold',
-    letterSpacing: 1,
+    fontWeight: '800',
+    letterSpacing: 2,
+    marginBottom: 4,
   },
   meterValue: {
-    fontSize: 32,
+    fontSize: 42,
     fontWeight: 'bold',
     fontFamily: 'monospace',
+    textShadowColor: 'rgba(72, 187, 120, 0.3)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
+  },
+  infoBadge: {
+    backgroundColor: 'rgba(26, 32, 44, 0.85)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    alignSelf: 'flex-start',
+    marginBottom: 12,
   },
   statusText: {
-    color: 'white',
+    color: '#e2e8f0',
+    fontSize: 11,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+  },
+  dataDisplay: {
+    backgroundColor: 'rgba(26, 32, 44, 0.85)',
+    padding: 12,
+    borderRadius: 12,
+  },
+  dataRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
+  dataLabel: {
+    color: '#a0aec0',
+    fontSize: 11,
+  },
+  dataValue: {
+    color: '#fff',
+    fontSize: 11,
     fontWeight: 'bold',
   },
   controls: {
     position: 'absolute',
-    bottom: 40,
+    bottom: 20,
+    left: 20,
     right: 20,
-    flexDirection: 'row',
+    backgroundColor: 'rgba(26, 32, 44, 0.9)',
+    borderRadius: 20,
+    padding: 15,
+  },
+  controlHeader: {
+    marginBottom: 10,
+    paddingHorizontal: 5,
+  },
+  controlTitle: {
+    color: '#718096',
+    fontSize: 10,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  scrollContent: {
+    paddingRight: 80,
   },
   button: {
-    backgroundColor: '#3182ce',
-    padding: 15,
-    borderRadius: 8,
-    marginLeft: 10,
+    backgroundColor: '#2d3748',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    marginRight: 10,
+    minWidth: 140,
   },
   buttonText: {
     color: 'white',
+    fontSize: 13,
     fontWeight: 'bold',
   },
-  dataDisplay: {
-    marginTop: 10,
+  buttonSubtext: {
+    color: '#a0aec0',
+    fontSize: 10,
+    marginTop: 2,
   },
-  dataText: {
-    color: '#cbd5e0',
-    fontSize: 14,
-  },
-  resetButton: {
+  resetFab: {
+    position: 'absolute',
+    right: 15,
+    bottom: 15,
     backgroundColor: '#e53e3e',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+  },
+  resetFabText: {
+    color: 'white',
+    fontSize: 11,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
   },
 });
 
