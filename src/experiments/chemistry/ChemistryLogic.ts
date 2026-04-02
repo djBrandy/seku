@@ -10,6 +10,7 @@ export interface Solution {
 const PH_NEUTRAL = 7.0;
 const PH_MIN = 0.0;
 const PH_MAX = 14.0;
+const MAX_PRECISION = 2;
 
 export class ChemistryLogic {
   static calculateMixedPH(solutionA: Solution, solutionB: Solution): Solution {
@@ -44,8 +45,8 @@ export class ChemistryLogic {
     
     return {
       name: 'Mixed Solution',
-      pH: parseFloat(Math.max(PH_MIN, Math.min(PH_MAX, mixedPH)).toFixed(2)),
-      concentration: (solutionA.concentration * solutionA.volume + solutionB.concentration * solutionB.volume) / totalVolume,
+      pH: parseFloat(Math.max(PH_MIN, Math.min(PH_MAX, mixedPH)).toFixed(MAX_PRECISION)),
+      concentration: parseFloat(((solutionA.concentration * solutionA.volume + solutionB.concentration * solutionB.volume) / totalVolume).toFixed(4)),
       volume: totalVolume,
       color: this.interpolateColor(solutionA.color, solutionB.color, solutionB.volume / totalVolume),
     };
