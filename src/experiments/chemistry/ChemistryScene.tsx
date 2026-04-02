@@ -14,18 +14,25 @@ export const ChemistryScene: React.FC<ChemistrySceneProps> = ({ scene, solution 
   useEffect(() => {
     // Laboratory Floor
     const floorGeo = new THREE.PlaneGeometry(20, 20);
-    const floorMat = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+    const floorMat = new THREE.MeshStandardMaterial({ color: 0x2d3748, roughness: 0.8 });
     const floor = new THREE.Mesh(floorGeo, floorMat);
     floor.rotation.x = -Math.PI / 2;
-    floor.position.y = -1;
+    floor.position.y = -0.5;
     scene.add(floor);
 
     // Workbench
-    const tableGeo = new THREE.BoxGeometry(5, 0.2, 3);
-    const tableMat = new THREE.MeshStandardMaterial({ color: 0x444444 });
+    const tableGeo = new THREE.BoxGeometry(6, 0.4, 4);
+    const tableMat = new THREE.MeshStandardMaterial({ color: 0x1a202c, roughness: 0.5, metalness: 0.2 });
     const table = new THREE.Mesh(tableGeo, tableMat);
-    table.position.y = 0;
+    table.position.y = -0.2;
     scene.add(table);
+
+    // Light
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0xffffff, 1.0);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
 
     // Beaker Group
     const beakerGroup = new THREE.Group();
